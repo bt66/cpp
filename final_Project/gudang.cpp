@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 // kapasitas gudang
@@ -16,6 +17,19 @@ void init()
     antrean.awal = 0;
     antrean.akhir = 0;
 }
+
+bool checkKosong()
+{
+    if (antrean.akhir == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void inputData(int jumlahBarang)
 {
     string temp;
@@ -24,11 +38,11 @@ void inputData(int jumlahBarang)
         if (antrean.akhir < jumlahBarang + antrean.akhir)
         {
             cout << "masukkan barang ke " << antrean.akhir << endl;
-            cin >> temp;
+            cin.ignore();
+            getline(cin, temp);
             cout << "data masuk" << endl;
             antrean.namaBarang[antrean.akhir] = temp;
             antrean.id[antrean.akhir] = antrean.akhir;
-
             antrean.akhir++;
         }
     }
@@ -98,6 +112,55 @@ void sortID()
         }
     }
 }
+
+void sortIDDescending()
+{
+    string temp1;
+    int temp2;
+    for (int i = antrean.awal; i < antrean.akhir; i++)
+    {
+        for (int j = i + 1; j < antrean.akhir; j++)
+        {
+            if (antrean.id[j] > antrean.id[i])
+            {
+                // untuk namaBarang
+                temp1 = antrean.namaBarang[i];
+                antrean.namaBarang[i] = antrean.namaBarang[j];
+                antrean.namaBarang[j] = temp1;
+
+                // untuk id Barang
+                temp2 = antrean.id[i];
+                antrean.id[i] = antrean.id[j];
+                antrean.id[j] = temp2;
+            }
+        }
+    }
+}
+
+void sortNamaDescending()
+{
+    string temp1;
+    int temp2;
+    for (int i = antrean.awal; i < antrean.akhir; i++)
+    {
+        for (int j = i + 1; j < antrean.akhir; j++)
+        {
+            if (antrean.namaBarang[j] > antrean.namaBarang[i])
+            {
+                // untuk namaBarang
+                temp1 = antrean.namaBarang[i];
+                antrean.namaBarang[i] = antrean.namaBarang[j];
+                antrean.namaBarang[j] = temp1;
+
+                // untuk id Barang
+                temp2 = antrean.id[i];
+                antrean.id[i] = antrean.id[j];
+                antrean.id[j] = temp2;
+            }
+        }
+    }
+}
+
 void cariBarang(string cari)
 {
     int searchNama[KAPASITAS];
@@ -182,6 +245,8 @@ int main()
         cout << "\t 7. Bersihkan Gudang dari barang" << endl;
         cout << "\t 8. keluar \n"
              << endl;
+        cout << "\t 9. SortBy ID Descending" << endl;
+        cout << "\t 10. Sort By Name Descending" << endl;
         cout << "Masukkan pilihan :";
         cin >> menu;
 
@@ -193,7 +258,14 @@ int main()
             inputData(jumlahBarang);
             break;
         case 2:
-            periksaBarang();
+            if (checkKosong() == true)
+            {
+                cout << "Silahkan input barang terlebih dahulu" << endl;
+            }
+            else
+            {
+                periksaBarang();
+            }
             break;
         case 3:
             barangKeluar();
@@ -213,6 +285,14 @@ int main()
             cout << "menghapus data ..." << endl;
             hapusSemuaData();
             cout << "data sudah di hapus" << endl;
+            break;
+        case 9:
+            cout << "Sorting By id Descending" << endl;
+            sortIDDescending();
+            break;
+        case 10:
+            cout << "Sorting By name Descending" << endl;
+            sortNamaDescending();
             break;
 
         default:
