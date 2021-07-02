@@ -30,6 +30,18 @@ bool checkKosong()
     }
 }
 
+bool gudangPenuh()
+{
+    if (antrean.akhir == KAPASITAS)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void inputData(int jumlahBarang)
 {
     string temp;
@@ -38,7 +50,10 @@ void inputData(int jumlahBarang)
         if (antrean.akhir < jumlahBarang + antrean.akhir)
         {
             cout << "masukkan barang ke " << antrean.akhir << endl;
-            cin.ignore();
+            if (i == 0)
+            {
+                cin.ignore();
+            }
             getline(cin, temp);
             cout << "data masuk" << endl;
             antrean.namaBarang[antrean.akhir] = temp;
@@ -203,35 +218,6 @@ int main()
     string cariNamaBarang;
 
     init();
-    /*
-    cout << "===============Aplikasi Gudang=============" << endl;
-
-    // input data
-    inputData(jumlahBarang);
-    periksaBarang();
-    cout << "antrean.akhir" << antrean.akhir << endl;
-    //hapus data
-    // print data
-    periksaBarang();
-
-    // bubble sort
-    sortNama();
-
-    periksaBarang();
-
-    sortID();
-    periksaBarang();
-
-    // search by name
-
-    cariBarang(cariNamaBarang);
-
-    // reset
-
-    periksaBarang();
-    inputData(jumlahBarang);
-    periksaBarang();
-    */
     do
     {
         cout << "===============Aplikasi Gudang=============" << endl;
@@ -247,15 +233,23 @@ int main()
              << endl;
         cout << "\t 9. SortBy ID Descending" << endl;
         cout << "\t 10. Sort By Name Descending" << endl;
+        cout << "\t 11. Hapus Data";
         cout << "Masukkan pilihan :";
         cin >> menu;
 
         switch (menu)
         {
         case 1:
-            cout << "masukkan jumlah barang : ";
-            cin >> jumlahBarang;
-            inputData(jumlahBarang);
+            if (gudangPenuh() == true)
+            {
+                cout << "Gudang Sudah Penuh" << endl;
+            }
+            else
+            {
+                cout << "masukkan jumlah barang : ";
+                cin >> jumlahBarang;
+                inputData(jumlahBarang);
+            }
             break;
         case 2:
             if (checkKosong() == true)
@@ -268,17 +262,39 @@ int main()
             }
             break;
         case 3:
-            barangKeluar();
+            if (checkKosong() == true)
+            {
+                cout << "Silahkan input barang terlebih dahulu" << endl;
+            }
+            else
+            {
+                barangKeluar();
+            }
             break;
         case 4:
-            sortID();
+            if (checkKosong() == true)
+            {
+                cout << "Silahkan input barang terlebih dahulu" << endl;
+            }
+            else
+            {
+                sortID();
+            }
             break;
         case 5:
-            sortNama();
+            if (checkKosong() == true)
+            {
+                cout << "Silahkan input barang terlebih dahulu" << endl;
+            }
+            else
+            {
+                sortNama();
+            }
             break;
         case 6:
             cout << "masukkan nama barang yang ingin di cari : ";
             cin >> cariNamaBarang;
+            sortNama();
             cariBarang(cariNamaBarang);
             break;
         case 7:
@@ -296,7 +312,9 @@ int main()
             break;
 
         default:
-            cout << "masukkan angka sesuai di menu" << endl;
+            cout
+                << "masukkan angka sesuai di menu"
+                << endl;
             break;
         }
     } while (menu != 8);
