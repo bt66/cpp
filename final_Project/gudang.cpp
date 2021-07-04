@@ -185,7 +185,7 @@ void cariBarang(string cari)
     {
         if (antrean.namaBarang[i] == cari)
         {
-            searchNama[j] = 1;
+            searchNama[j] = i;
             j++;
         }
     }
@@ -229,11 +229,12 @@ int main()
         cout << "\t 5. Urutkan Data berdasarkan Nama Barang" << endl;
         cout << "\t 6. Cari Data" << endl;
         cout << "\t 7. Bersihkan Gudang dari barang" << endl;
-        cout << "\t 8. keluar \n"
+        cout << "\t 8. SortBy ID Descending" << endl;
+        cout << "\t 9. Sort By Name Descending" << endl;
+        cout << "\t 10. Hapus Data \n";
+        cout << "\t 11. keluar \n"
              << endl;
-        cout << "\t 9. SortBy ID Descending" << endl;
-        cout << "\t 10. Sort By Name Descending" << endl;
-        cout << "\t 11. Hapus Data";
+
         cout << "Masukkan pilihan :";
         cin >> menu;
 
@@ -293,22 +294,22 @@ int main()
             break;
         case 6:
             cout << "masukkan nama barang yang ingin di cari : ";
-            cin >> cariNamaBarang;
-            sortNama();
+            cin.ignore();
+            getline(cin, cariNamaBarang);
             cariBarang(cariNamaBarang);
             break;
-        case 7:
-            cout << "menghapus data ..." << endl;
-            hapusSemuaData();
-            cout << "data sudah di hapus" << endl;
-            break;
-        case 9:
+        case 8:
             cout << "Sorting By id Descending" << endl;
             sortIDDescending();
             break;
-        case 10:
+        case 9:
             cout << "Sorting By name Descending" << endl;
             sortNamaDescending();
+            break;
+        case 10:
+            cout << "menghapus data ..." << endl;
+            hapusSemuaData();
+            cout << "data sudah di hapus" << endl;
             break;
 
         default:
@@ -317,5 +318,5 @@ int main()
                 << endl;
             break;
         }
-    } while (menu != 8);
+    } while (menu != 11);
 }
