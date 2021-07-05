@@ -231,8 +231,7 @@ int main()
         cout << "\t 7. Bersihkan Gudang dari barang" << endl;
         cout << "\t 8. SortBy ID Descending" << endl;
         cout << "\t 9. Sort By Name Descending" << endl;
-        cout << "\t 10. Hapus Data \n";
-        cout << "\t 11. keluar \n"
+        cout << "\t 10. keluar \n"
              << endl;
 
         cout << "Masukkan pilihan :";
@@ -298,6 +297,9 @@ int main()
             getline(cin, cariNamaBarang);
             cariBarang(cariNamaBarang);
             break;
+        case 7:
+            cout << "menghapus semua barang";
+            hapusSemuaData();
         case 8:
             cout << "Sorting By id Descending" << endl;
             sortIDDescending();
@@ -306,11 +308,6 @@ int main()
             cout << "Sorting By name Descending" << endl;
             sortNamaDescending();
             break;
-        case 10:
-            cout << "menghapus data ..." << endl;
-            hapusSemuaData();
-            cout << "data sudah di hapus" << endl;
-            break;
 
         default:
             cout
@@ -318,5 +315,5 @@ int main()
                 << endl;
             break;
         }
-    } while (menu != 11);
+    } while (menu != 10);
 }
